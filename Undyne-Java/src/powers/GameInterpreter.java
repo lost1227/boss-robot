@@ -17,7 +17,8 @@ public class GameInterpreter {
 	
 	int depth = 3;
 	
-	private int arrowRadius = 65;
+	private int arrowRadius = 80;
+	private int goldRadius = 62;
 	
 	private BufferedImage infoImg;
 	
@@ -116,14 +117,14 @@ public class GameInterpreter {
 	
 	public Direction closestArrow(BufferedImage img) {
 		int x1 = center.x, x2 = center.x, y1 = center.y, y2 = center.y, r = 0;
-		while(x1 > depth && x2 < img.getWidth()-depth && y1 > depth && y2 < img.getHeight()-depth) {
-			if(isRedArrow(img, center.x, y1, Direction.UP) || isBlueArrow(img, center.x, y1, Direction.UP) || (r < arrowRadius && isGoldArrow(img, center.x, y1, Direction.UP))) return Direction.UP;
-			if(isRedArrow(img, center.x, y2, Direction.DOWN) || isBlueArrow(img, center.x, y2, Direction.DOWN) || (r < arrowRadius && isGoldArrow(img, center.x, y2, Direction.DOWN))) return Direction.DOWN;
-			if(isRedArrow(img, x1, center.y, Direction.LEFT) || isBlueArrow(img, x1, center.y, Direction.LEFT) || (r < arrowRadius && isGoldArrow(img, x1, center.y, Direction.LEFT))) return Direction.LEFT;
-			if(isRedArrow(img, x2, center.y, Direction.RIGHT) || isBlueArrow(img, x2, center.y, Direction.RIGHT) || (r < arrowRadius && isGoldArrow(img, x2, center.y, Direction.RIGHT))) return Direction.RIGHT;
+		while(r < arrowRadius) {
+			if(isRedArrow(img, center.x, y1, Direction.UP) || isBlueArrow(img, center.x, y1, Direction.UP) || (r < goldRadius && isGoldArrow(img, center.x, y1, Direction.UP))) return Direction.UP;
+			if(isRedArrow(img, center.x, y2, Direction.DOWN) || isBlueArrow(img, center.x, y2, Direction.DOWN) || (r < goldRadius && isGoldArrow(img, center.x, y2, Direction.DOWN))) return Direction.DOWN;
+			if(isRedArrow(img, x1, center.y, Direction.LEFT) || isBlueArrow(img, x1, center.y, Direction.LEFT) || (r < goldRadius && isGoldArrow(img, x1, center.y, Direction.LEFT))) return Direction.LEFT;
+			if(isRedArrow(img, x2, center.y, Direction.RIGHT) || isBlueArrow(img, x2, center.y, Direction.RIGHT) || (r < goldRadius && isGoldArrow(img, x2, center.y, Direction.RIGHT))) return Direction.RIGHT;
 			
 			Color c;
-			if(r < arrowRadius) {
+			if(r < goldRadius) {
 				c = Color.WHITE;
 			} else {
 				c = Color.CYAN;
